@@ -1,3 +1,5 @@
+//global vars
+var myList = [];
 
 //courtesy of w3schools, from: http://www.w3schools.com/js/js_cookies.asp
 function setCookie(cname, cvalue, exdays) {
@@ -24,27 +26,37 @@ function getCookie(cname) {
 
 function addItem(){
     var input = document.getElementById("newItem");
-    var list = document.getElementById("listDisplay");
-    var item = document.createElement("li");
-    var itemName = document.createTextNode(input);
-    var btnClose = document.createElement("button");
-    btnClose.classList.add("btn");
-    btnClose.classList.add("btn-danger");
-    btnClose.classList.add("btn-xs");
-    if(btnClose){
-        btnClose.addEventListener("click", removeParentListItem);
+    myList = [input];
+    console.log(myList);
+    if(myList.find(input) === -1){
+        var list = document.getElementById("listDisplay");
+        var item = document.createElement("li");
+        var itemName = document.createTextNode(input);
+        var btnClose = document.createElement("button");
+        btnClose.classList.add("btn");
+        btnClose.classList.add("btn-danger");
+        btnClose.classList.add("btn-xs");
+        if(btnClose){
+            btnClose.addEventListener("click", removeParentListItem);
+        }
+        var iconClose = document.createElement("span");
+        iconClose.classList.add("glyphicon");
+        iconClose.classList.add("glyphicon-remove");
+        btnClose.appendChild(iconClose);
+        item.appendChild(btnClose);
+        item.appendChild(itemName);
+        list.appendChild(item);
+    } else{
+        return "";
     }
-    var iconClose = document.createElement("span");
-    iconClose.classList.add("glyphicon");
-    iconClose.classList.add("glyphicon-remove");
-    btnClose.appendChild(iconClose);
-    item.appendChild(btnClose);
-    item.appendChild(itemName);
-    list.appendChild(item);
 }
 
 function removeParentListItem(){
     var mom = this.parentNode;
     var grandma = mom.parentNode;
+    //var li = document.getElementById("li");
+    var itemRemove = mom.firstChild.textContent;
+    var itemIndex = myList.find(itemRemove);
+    myList.splice(itemIndex, 1);
     grandma.removeChild(mom);
 }
