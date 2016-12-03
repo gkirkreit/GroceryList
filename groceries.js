@@ -1,6 +1,8 @@
 //global vars
 var myList = [];
 
+window.onload = loadCookieList;
+
 //courtesy of w3schools, from: http://www.w3schools.com/js/js_cookies.asp
 function setCookie(cname, cvalue, exdays) {
     var d = new Date();
@@ -26,19 +28,17 @@ function getCookie(cname) {
 
 function addItem(){
     var input = document.getElementById("newItem");
-    myList = [input];
     console.log(myList);
-    if(myList.find(input) === -1){
-        var list = document.getElementById("listDisplay");
-        var item = document.createElement("li");
-        var itemName = document.createTextNode(input);
-        var btnClose = document.createElement("button");
-        btnClose.classList.add("btn");
-        btnClose.classList.add("btn-danger");
-        btnClose.classList.add("btn-xs");
-        if(btnClose){
-            btnClose.addEventListener("click", removeParentListItem);
-        }
+    var item = document.createElement("li");
+    var itemName = document.createTextNode(input);
+    var btnClose = document.createElement("button");
+    btnClose.classList.add("btn");
+    btnClose.classList.add("btn-danger");
+    btnClose.classList.add("btn-xs");
+
+    if(btnClose){
+        btnClose.addEventListener("click", removeParentListItem);
+    }
         var iconClose = document.createElement("span");
         iconClose.classList.add("glyphicon");
         iconClose.classList.add("glyphicon-remove");
@@ -49,6 +49,8 @@ function addItem(){
     } else{
         return "";
     }
+
+    displayItem(input);
 }
 
 function removeParentListItem(){
@@ -71,4 +73,19 @@ function saveList(){
 function clearList(){
     document.getElementById("listDisplay").replaceChild("");
     myList = [];
+}
+
+function displayItem(parameter){
+    if(myList.find(parameter) === -1){
+        myList = [parameter];
+        var list = document.getElementById("listDisplay");
+    }
+}
+
+function loadCookieList(){
+    var cookie = document.getCookie("myCookie");
+    var arrayCookie = [cookie.split(",")];
+    for(int i = 0; i < arrayCookie.length; i++){
+        displayItem(arrayCookie[i]);
+    }
 }
