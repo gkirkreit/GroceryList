@@ -58,5 +58,17 @@ function removeParentListItem(){
     var itemRemove = mom.firstChild.textContent;
     var itemIndex = myList.find(itemRemove);
     myList.splice(itemIndex, 1);
+    console.log(myList);
     grandma.removeChild(mom);
+}
+
+function saveCookie(){
+    var myListString = [myList.toString()];
+
+    setCookie("myCookie", myList, myListString, 2);
+}
+
+function clearList(){
+    document.getElementById("listDisplay").replaceChild("");
+    myList = [];
 }
