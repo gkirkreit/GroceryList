@@ -62,7 +62,7 @@ function removeParentListItem(){
     grandma.removeChild(mom);
 }
 
-function saveCookie(){
+function saveList(){
     var myListString = [myList.toString()];
 
     setCookie("myCookie", myList, myListString, 2);
