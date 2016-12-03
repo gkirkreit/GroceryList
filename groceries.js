@@ -31,6 +31,7 @@ function addItem(){
     btnClose.classList.add("btn");
     btnClose.classList.add("btn-danger");
     btnClose.classList.add("btn-xs");
+    document.getElementById("btnClose").addEventListener("click", removeParentListItem);
     var iconClose = document.createElement("span");
     iconClose.classList.add("glyphicon");
     iconClose.classList.add("glyphicon-remove");
@@ -38,5 +39,10 @@ function addItem(){
     item.appendChild(btnClose);
     item.appendChild(itemName);
     list.appendChild(item);
-    
+}
+
+function removeParentListItem(){
+    var mom = this.parentNode;
+    var grandma = mom.parentNode;
+    grandma.removeChild(mom);
 }
